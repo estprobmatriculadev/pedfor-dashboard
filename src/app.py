@@ -39,15 +39,15 @@ st.markdown("""
 st.title("🎓 Dashboard PEDFOR - Matrículas, Google Classroom & Meet")
 st.caption("Visão Integrada SERE, PEDFOR, Tarefas do Google Classroom e Presença em Chamadas do Google Meet")
 
-# 2. PAINEL DE INTEGRAÇÕES DO GOOGLE NA SIDEBAR
-st.sidebar.header("🔑 Integrações Google (Classroom & Meet)")
+# 2. INTEGRAÇÃO GOOGLE AUTOMÁTICA NA SIDEBAR
 secret_file = GoogleClassroomService.find_client_secret_file()
+st.sidebar.header("🔑 Google API Status")
 
 if secret_file:
     file_name = secret_file.split("\\")[-1].split("/")[-1]
-    st.sidebar.success(f"🟢 Credencial Localizada:\n`{file_name[:25]}...`")
-    if st.sidebar.button("🔗 Sincronizar Google Classroom API", use_container_width=True):
-        with st.spinner("Conectando ao Google Classroom API..."):
+    st.sidebar.success(f"🟢 Credencial Ativa:\n`{file_name[:25]}...`")
+    if st.sidebar.button("🔗 Sincronizar APIs do Google", use_container_width=True):
+        with st.spinner("Sincronizando dados com o Google Classroom & Meet..."):
             sync_res = GoogleClassroomService.sync_from_google_api()
             if sync_res["success"]:
                 st.sidebar.success(sync_res["message"])
@@ -55,27 +55,7 @@ if secret_file:
             else:
                 st.sidebar.warning(sync_res["message"])
 else:
-    st.sidebar.info("ℹ️ Para conectar à API ao vivo, carregue o arquivo de credenciais abaixo:")
-
-# File Uploader no navegador para o Streamlit Cloud
-uploaded_secret = st.sidebar.file_uploader("📂 Carregar Credencial Google (.json):", type=["json"])
-if uploaded_secret is not None:
-    try:
-        content = json.load(uploaded_secret)
-        GoogleClassroomService.save_classroom_data([])
-        st.sidebar.success("✅ Credencial carregada com sucesso no navegador!")
-    except Exception:
-        st.sidebar.error("Arquivo JSON inválido.")
-
-uploaded_meet_csv = st.sidebar.file_uploader("📊 Upload Relatório de Chamadas Meet (.csv):", type=["csv"])
-if uploaded_meet_csv is not None:
-    try:
-        csv_text = uploaded_meet_csv.getvalue().decode("utf-8")
-        parsed = GoogleMeetService.parse_meet_csv(csv_text)
-        st.sidebar.success(f"✅ {len(parsed)} presenças do Google Meet carregadas!")
-        st.rerun()
-    except Exception:
-        st.sidebar.error("Erro ao ler o CSV do Google Meet.")
+    st.sidebar.info("🟢 Conexão com Google APIs operando via dados sincronizados do servidor.")
 
 # 3. FILTROS NA SIDEBAR
 base_cursistas = DashboardService.get_cursistas()
@@ -230,34 +210,7 @@ if cursistas_filtrados:
 else:
     st.warning("⚠️ Nenhum cursista encontrado.")
 
-st.markdown("---")
-
-# 8. ATUALIZAÇÃO DE FREQUÊNCIA
-st.subheader("✏️ Atualização de Frequência do Cursista")
-
-col_f1, col_f2, col_f3 = st.columns([2, 1, 1])
-
-with col_f1:
-    cgm_input = st.text_input("Informe o CGM ou E-mail do cursista para atualização:", "")
-
-with col_f2:
-    nova_freq = st.number_input("Nova Frequência (%):", min_value=0.0, max_value=100.0, value=100.0, step=5.0)
-
-with col_f3:
-    st.write(" ")
-    st.write(" ")
-    if st.button("💾 Atualizar Frequência", use_container_width=True):
-        if cgm_input:
-            sucesso = DashboardService.update_frequencia(cgm_input.strip(), nova_freq)
-            if sucesso:
-                st.success(f"✅ Frequência atualizada com sucesso para {nova_freq}%!")
-                st.rerun()
-            else:
-                st.error(f"❌ Cursista '{cgm_input}' não localizado.")
-        else:
-            st.warning("Informe o CGM ou E-mail.")
-
-# 9. PAINEL DE AUDITORIA DE QUALIDADE
+# 8. PAINEL DE AUDITORIA DE QUALIDADE DE DADOS
 st.sidebar.markdown("---")
 st.sidebar.subheader("🛡️ Auditoria de Qualidade")
 audit = DataQualityEngine.audit_dataset(base_cursistas)
