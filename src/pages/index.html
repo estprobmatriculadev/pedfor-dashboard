@@ -3,78 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PEDFOR - Dashboard de Matrículas</title>
+  <title>PEDFOR - Consulta de Matrículas e Frequência</title>
   <link rel="stylesheet" href="../components/theme.css">
 </head>
 <body>
   <header style="padding: 24px 40px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
     <div>
-      <h1 style="margin: 0; font-size: 1.6rem;">🎓 Dashboard de Matrículas PEDFOR</h1>
-      <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Painel de Acompanhamento de Cursistas, Turmas e Confirmações | TiDB Cloud Database</p>
+      <h1 style="margin: 0; font-size: 1.6rem;">🎓 PEDFOR - Matrículas, Cursistas e Frequência</h1>
+      <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Consulta por Turma, Período, Dia da Semana, Formador/Tutora, NRE e Frequência | TiDB Cloud</p>
     </div>
     <div style="display: flex; gap: 12px; align-items: center;">
-      <span class="kpi-badge success" id="status-badge">● Sistema Operacional</span>
+      <span class="kpi-badge success" id="status-badge">● 2,390 Registros Ativos</span>
     </div>
   </header>
 
   <main style="padding: 32px 40px;">
     <!-- Container dos KPI Cards -->
-    <section aria-label="Indicadores de Matrícula" class="kpi-grid">
+    <section aria-label="Indicadores Acadêmicos" class="kpi-grid">
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Total de Matrículas</div>
-        <div class="kpi-value" id="kpi-total">2,288</div>
-        <div class="kpi-badge success">Inscrições Confirmadas</div>
+        <div class="kpi-title">Total de Cursistas</div>
+        <div class="kpi-value" id="kpi-total">2,390</div>
+        <div class="kpi-badge success">Inscrições SERE / PEDFOR</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Turmas Ocupadas</div>
-        <div class="kpi-value" id="kpi-turmas">150</div>
-        <div class="kpi-badge warning">Turmas Ativas</div>
+        <div class="kpi-title">Matriculados</div>
+        <div class="kpi-value" id="kpi-matriculados">2,212</div>
+        <div class="kpi-badge success">Cursistas Ativos</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Formadores</div>
-        <div class="kpi-value" id="kpi-formadores">25</div>
-        <div class="kpi-badge success">Formadores Alocados</div>
+        <div class="kpi-title">Remanejados</div>
+        <div class="kpi-value" id="kpi-remanejados">141</div>
+        <div class="kpi-badge warning">Transferidos</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">E-mails Enviados</div>
-        <div class="kpi-value" id="kpi-emails">100%</div>
-        <div class="kpi-badge success">Confirmações Entregues</div>
+        <div class="kpi-title">Desistentes</div>
+        <div class="kpi-value" id="kpi-desistentes">37</div>
+        <div class="kpi-badge danger">Cancelamentos</div>
+      </article>
+
+      <article class="glass-card kpi-card">
+        <div class="kpi-title">Frequência Média</div>
+        <div class="kpi-value" id="kpi-freq">96.07%</div>
+        <div class="kpi-badge info">Média de Presença</div>
       </article>
     </section>
 
-    <!-- Tabela com Turmas -->
+    <!-- Tabela de Cursistas -->
     <section class="glass-card" style="margin-top: 24px;">
-      <h3 style="margin-top: 0;">📚 Detalhamento das Turmas</h3>
-      <table class="modern-table" aria-label="Tabela de Turmas do PEDFOR">
+      <h3 style="margin-top: 0;">📋 Relação de Cursistas por Turma, NRE e Formador</h3>
+      <table class="modern-table" aria-label="Tabela de Cursistas do PEDFOR">
         <thead>
           <tr>
-            <th scope="col">Nome da Turma</th>
-            <th scope="col">Formador Responsável</th>
-            <th scope="col">Dia da Semana</th>
-            <th scope="col">Horário</th>
-            <th scope="col">Total Cursistas</th>
-            <th scope="col">Status E-mail</th>
+            <th scope="col">CGM</th>
+            <th scope="col">Nome do Cursista</th>
+            <th scope="col">E-mail Institucional</th>
+            <th scope="col">NRE</th>
+            <th scope="col">Turma</th>
+            <th scope="col">Formador / Tutora</th>
+            <th scope="col">Status na Turma</th>
+            <th scope="col">Frequência (%)</th>
           </tr>
         </thead>
         <tbody id="tabela-corpo">
           <tr>
-            <td><strong>PEDFOR AA MANHÃ</strong></td>
+            <td>7770296794</td>
+            <td><strong>ANA MONICA PEREIRA PIZZO</strong></td>
+            <td>rosa.maristela@escola.pr.gov.br</td>
+            <td>NRE CURITIBA</td>
+            <td>PEDFOR A MANHÃ</td>
             <td>DOROTEA BARBOSA KRUMMENAUER</td>
-            <td>QUARTA-FEIRA</td>
-            <td>8h às 9h40</td>
-            <td>25</td>
-            <td><span class="kpi-badge success">enviado</span></td>
+            <td><span class="kpi-badge success">Matriculado</span></td>
+            <td>100.00%</td>
           </tr>
           <tr>
-            <td><strong>PEDFOR A MANHÃ</strong></td>
+            <td>97007919049</td>
+            <td><strong>CHRYSTIAN RAPHAEL KRONE</strong></td>
+            <td>chrystian.krone@escola.pr.gov.br</td>
+            <td>NRE CURITIBA</td>
+            <td>PEDFOR A MANHÃ</td>
             <td>ELIZETE SCHACTAE</td>
-            <td>TERÇA-FEIRA</td>
-            <td>8h às 9h40</td>
-            <td>28</td>
-            <td><span class="kpi-badge success">enviado</span></td>
+            <td><span class="kpi-badge warning">Remanejado</span></td>
+            <td>60.00%</td>
           </tr>
         </tbody>
       </table>

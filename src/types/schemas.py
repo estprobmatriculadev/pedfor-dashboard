@@ -1,43 +1,39 @@
 from typing import TypedDict, Optional, List, Dict, Any
 
-class MatriculaRecord(TypedDict):
+class CursistaRecord(TypedDict):
     id: str
-    cursista_id: str
+    cgm: str
     cursista_nome: str
     cursista_email: str
+    nre: str
     turma_id: str
     turma_nome: str
     turma_formador: str
+    tutora: str
     turma_dia: str
     turma_horario: str
-    vaga_id: str
-    data_confirmacao: str
+    periodo_turno: str
+    situacao: str # 'Matriculado', 'Remanejado', 'Desistente'
+    frequencia_pct: float
     status_email: str
 
-class KPIMatriculas(TypedDict):
-    total_matriculas: int
-    total_cursistas_unicos: int
+class KPIMatriculasConsolidado(TypedDict):
+    total_inscritos: int
+    total_matriculados: int
+    total_remanejados: int
+    total_desistentes: int
     total_turmas: int
     total_formadores: int
-    emails_enviados: int
-    emails_pendentes: int
-    taxa_envio_email_pct: float
+    total_nres: int
+    frequencia_media_pct: float
     status: str
 
-class TurmaResumo(TypedDict):
-    turma_id: str
-    turma_nome: str
-    turma_formador: str
-    turma_dia: str
-    turma_horario: str
-    total_cursistas: int
-    emails_enviados: int
-    taxa_confirmacao_pct: float
-
-class FilterMatriculaParams(TypedDict, total=False):
-    turma_id: Optional[str]
+class FilterParamsMatricula(TypedDict, total=False):
+    turma_nome: Optional[str]
     formador: Optional[str]
+    tutora: Optional[str]
     dia_semana: Optional[str]
-    horario: Optional[str]
-    status_email: Optional[str]
+    periodo_turno: Optional[str]
+    situacao: Optional[str]
+    nre: Optional[str]
     search: Optional[str]

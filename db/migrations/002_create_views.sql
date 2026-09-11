@@ -1,58 +1,43 @@
 -- ============================================================
--- Migration 002: Views Agregadas de Indicadores de Matrícula
--- Projeto: PEDFOR Dashboard de Matrículas
+-- Migration 002: Views Agregadas de Matrícula, NRE e Frequência
+-- Projeto: PEDFOR Dashboard
 -- ============================================================
 
--- 1. View Resumo dos KPIs Principais de Matrícula
+-- 1. View KPI Geral de Matrículas e Frequência
 CREATE OR REPLACE VIEW vw_kpi_matriculas AS
 SELECT 
-    COUNT(*) AS total_matriculas,
-    COUNT(DISTINCT cursista_email) AS total_cursistas_unicos,
+    COUNT(*) AS total_inscritos,
+    SUM(CASE WHEN situacao = 'Matriculado' THEN 1 ELSE 0 END) AS total_matriculados,
+    SUM(CASE WHEN situacao = 'Remanejado' THEN 1 ELSE 0 END) AS total_remanejados,
+    SUM(CASE WHEN situacao = 'Desistente' THEN 1 ELSE 0 END) AS total_desistentes,
     COUNT(DISTINCT turma_id) AS total_turmas,
     COUNT(DISTINCT turma_formador) AS total_formadores,
-    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS emails_enviados,
-    SUM(CASE WHEN status_email = 'pendente' THEN 1 ELSE 0 END) AS emails_pendentes,
-    ROUND(
-        (SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
-        2
-    ) AS taxa_envio_email_pct
+    COUNT(DISTINCT nre) AS total_nres,
+    ROUND(AVG(frequencia_pct), 2) AS frequencia_media_pct
 FROM matriculas_pedfor;
 
--- 2. View Agregada por Turma e Formador
-CREATE OR REPLACE VIEW vw_matriculas_por_turma AS
-SELECT 
-    turma_id,
-    turma_nome,
-    turma_formador,
-    turma_dia,
-    turma_horario,
-    COUNT(*) AS total_cursistas,
-    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS emails_enviados,
-    ROUND(
-        (SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
-        2
-    ) AS taxa_confirmacao_pct
-FROM matriculas_pedfor
-GROUP BY turma_id, turma_nome, turma_formador, turma_dia, turma_horario
-ORDER BY total_cursistas DESC;
-
--- 3. View Agregada por Formador (Ranking de Ocupação)
-CREATE OR REPLACE VIEW vw_ranking_formadores AS
+-- 2. View Agregada por Formador / Tutora
+CREATE OR REPLACE VIEW vw_cursistas_por_formador AS
 SELECT 
     turma_formador AS formador,
     COUNT(DISTINCT turma_id) AS qtd_turmas,
-    COUNT(*) AS total_cursistas_atendidos,
-    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS confirmados
+    COUNT(*) AS total_cursistas,
+    SUM(CASE WHEN situacao = 'Matriculado' THEN 1 ELSE 0 END) AS matriculados,
+    SUM(CASE WHEN situacao = 'Remanejado' THEN 1 ELSE 0 END) AS remanejados,
+    SUM(CASE WHEN situacao = 'Desistente' THEN 1 ELSE 0 END) AS desistentes,
+    ROUND(AVG(frequencia_pct), 2) AS frequencia_media_pct
 FROM matriculas_pedfor
 GROUP BY turma_formador
-ORDER BY total_cursistas_atendidos DESC;
+ORDER BY total_cursistas DESC;
 
--- 4. View Agregada por Dia da Semana e Horário
-CREATE OR REPLACE VIEW vw_distribuicao_dia_horario AS
+-- 3. View Agregada por NRE
+CREATE OR REPLACE VIEW vw_cursistas_por_nre AS
 SELECT 
-    turma_dia AS dia_semana,
-    turma_horario AS horario,
-    COUNT(*) AS total_matriculas
+    nre,
+    COUNT(*) AS total_cursistas,
+    SUM(CASE WHEN situacao = 'Matriculado' THEN 1 ELSE 0 END) AS matriculados,
+    SUM(CASE WHEN situacao = 'Remanejado' THEN 1 ELSE 0 END) AS remanejados,
+    SUM(CASE WHEN situacao = 'Desistente' THEN 1 ELSE 0 END) AS desistentes
 FROM matriculas_pedfor
-GROUP BY turma_dia, turma_horario
-ORDER BY total_matriculas DESC;
+GROUP BY nre
+ORDER BY total_cursistas DESC;

@@ -1,31 +1,31 @@
 import pytest
 from src.services.dashboard_service import DashboardService
 
-def test_service_get_kpis_matricula():
-    """Valida se o DashboardService retorna os KPIs reais de matrícula (2.288 registros)."""
+def test_service_get_kpis_consolidado():
+    """Valida se o DashboardService retorna os KPIs consolidados dos 2.390 cursistas."""
     kpis = DashboardService.get_kpis()
     assert isinstance(kpis, dict)
-    assert "total_matriculas" in kpis
-    assert "total_turmas" in kpis
-    assert "total_formadores" in kpis
-    assert "emails_enviados" in kpis
-    assert kpis["total_matriculas"] == 2288
-    assert kpis["total_turmas"] == 150
-    assert kpis["total_formadores"] == 25
+    assert kpis["total_inscritos"] == 2390
+    assert kpis["total_matriculados"] == 2212
+    assert kpis["total_remanejados"] == 141
+    assert kpis["total_desistentes"] == 37
+    assert kpis["frequencia_media_pct"] > 0
 
-def test_service_get_series_matricula():
-    """Valida a distribuição por dia da semana."""
-    series = DashboardService.get_series()
-    assert isinstance(series, list)
-    assert len(series) > 0
-    item = series[0]
-    assert "dia_semana" in item
-    assert "total_matriculas" in item
+def test_service_filtros_nre_e_situacao():
+    """Valida a filtragem por NRE e Situação."""
+    filtrados = DashboardService.get_cursistas({"situacao": "Remanejado"})
+    assert len(filtrados) == 141
+    for r in filtrados:
+        assert r["situacao"] == "Remanejado"
 
-def test_service_get_tabela_turmas():
-    """Valida a tabela de ocupação por turma."""
-    res = DashboardService.get_tabela_turmas()
-    assert isinstance(res, dict)
-    assert "items" in res
-    assert isinstance(res["items"], list)
-    assert res["total"] == 150
+def test_service_update_frequencia():
+    """Valida o serviço de atualização de frequência do cursista."""
+    # Pega um CGM existente
+    cursistas = DashboardService.get_cursistas()
+    cgm = cursistas[0]["cgm"]
+    res = DashboardService.update_frequencia(cgm, 95.0)
+    assert res is True
+    
+    # Verifica se atualizou
+    updated = DashboardService.get_cursistas({"search": cgm})
+    assert updated[0]["frequencia_pct"] == 95.0

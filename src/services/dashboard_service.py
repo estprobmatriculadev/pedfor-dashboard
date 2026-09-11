@@ -3,148 +3,156 @@ import json
 from typing import Dict, Any, List, Optional
 from src.data.db import execute_query
 
-MATRICULADOS_JSON_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "db", "matriculados.json")
+CONSOLIDADO_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "db", "matriculas_consolidadas.json")
 
 class DashboardService:
-    """Serviço de Backend para o Dashboard de Matrículas PEDFOR."""
+    """Serviço Backend unificado para o Dashboard de Matrículas e Frequência do PEDFOR."""
 
     @classmethod
-    def _load_json_data(cls) -> List[Dict[str, Any]]:
-        """Carrega a massa real de registros do arquivo db/matriculados.json."""
-        if os.path.exists(MATRICULADOS_JSON_PATH):
-            with open(MATRICULADOS_JSON_PATH, "r", encoding="utf-8") as f:
+    def _load_data(cls) -> List[Dict[str, Any]]:
+        """Carrega os dados consolidados do arquivo JSON."""
+        if os.path.exists(CONSOLIDADO_PATH):
+            with open(CONSOLIDADO_PATH, "r", encoding="utf-8") as f:
                 return json.load(f)
         return []
 
     @classmethod
-    def get_kpis(cls, filters: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Retorna os KPIs principais do dashboard de matrículas."""
+    def _save_data(cls, data: List[Dict[str, Any]]) -> bool:
+        """Salva as alterações (ex: atualização de frequência) no arquivo JSON."""
         try:
-            sql = "SELECT * FROM vw_kpi_matriculas;"
-            rows = execute_query(sql)
-            if rows and len(rows) > 0:
-                row = rows[0]
-                return {
-                    "total_matriculas": int(row.get("total_matriculas") or 0),
-                    "total_cursistas_unicos": int(row.get("total_cursistas_unicos") or 0),
-                    "total_turmas": int(row.get("total_turmas") or 0),
-                    "total_formadores": int(row.get("total_formadores") or 0),
-                    "emails_enviados": int(row.get("emails_enviados") or 0),
-                    "emails_pendentes": int(row.get("emails_pendentes") or 0),
-                    "taxa_envio_email_pct": float(row.get("taxa_envio_email_pct") or 0.0),
-                    "status": "success"
-                }
+            with open(CONSOLIDADO_PATH, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            return True
         except Exception:
-            pass
+            return False
 
-        # Cálculo real baseado no arquivo db/matriculados.json
-        data = cls._load_json_data()
+    @classmethod
+    def get_kpis(cls, filters: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Retorna os KPIs consolidados com base nos filtros aplicados."""
+        data = cls.get_cursistas(filters)
         if not data:
             return {
-                "total_matriculas": 0, "total_cursistas_unicos": 0, "total_turmas": 0,
-                "total_formadores": 0, "emails_enviados": 0, "emails_pendentes": 0,
-                "taxa_envio_email_pct": 0.0, "status": "empty"
+                "total_inscritos": 0, "total_matriculados": 0, "total_remanejados": 0,
+                "total_desistentes": 0, "total_turmas": 0, "total_formadores": 0,
+                "total_nres": 0, "frequencia_media_pct": 0.0, "status": "empty"
             }
 
-        total_matriculas = len(data)
-        cursistas = set(r.get("cursista_email") for r in data if r.get("cursista_email"))
-        turmas = set(r.get("turma_id") for r in data if r.get("turma_id"))
+        total_inscritos = len(data)
+        matriculados = sum(1 for r in data if r.get("situacao") == "Matriculado")
+        remanejados = sum(1 for r in data if r.get("situacao") == "Remanejado")
+        desistentes = sum(1 for r in data if r.get("situacao") == "Desistente")
+        
+        turmas = set(r.get("turma_nome") for r in data if r.get("turma_nome"))
         formadores = set(r.get("turma_formador") for r in data if r.get("turma_formador"))
-        enviados = sum(1 for r in data if r.get("status_email") == "enviado")
-        pendentes = total_matriculas - enviados
-        taxa = round((enviados * 100.0) / total_matriculas, 2) if total_matriculas > 0 else 0.0
+        nres = set(r.get("nre") for r in data if r.get("nre"))
+
+        freq_sum = sum(float(r.get("frequencia_pct", 100.0)) for r in data)
+        freq_avg = round(freq_sum / total_inscritos, 2) if total_inscritos > 0 else 0.0
 
         return {
-            "total_matriculas": total_matriculas,
-            "total_cursistas_unicos": len(cursistas),
+            "total_inscritos": total_inscritos,
+            "total_matriculados": matriculados,
+            "total_remanejados": remanejados,
+            "total_desistentes": desistentes,
             "total_turmas": len(turmas),
             "total_formadores": len(formadores),
-            "emails_enviados": enviados,
-            "emails_pendentes": pendentes,
-            "taxa_envio_email_pct": taxa,
-            "status": "json_real"
+            "total_nres": len(nres),
+            "frequencia_media_pct": freq_avg,
+            "status": "success"
         }
 
     @classmethod
-    def get_series(cls, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
-        """Retorna a distribuição de matrículas por Dia da Semana e Horário."""
-        try:
-            sql = "SELECT * FROM vw_distribuicao_dia_horario;"
-            rows = execute_query(sql)
-            if rows and len(rows) > 0:
-                return [
-                    {
-                        "dia_semana": r.get("dia_semana"),
-                        "horario": r.get("horario"),
-                        "total_matriculas": int(r.get("total_matriculas") or 0)
-                    }
-                    for r in rows
-                ]
-        except Exception:
-            pass
+    def get_cursistas(cls, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """Retorna a lista filtrada de cursistas e suas informações."""
+        data = cls._load_data()
+        if not filters:
+            return data
 
-        # Consolidação via db/matriculados.json
-        data = cls._load_json_data()
-        agrupado: Dict[str, int] = {}
+        filtered = []
         for r in data:
-            dia = r.get("turma_dia", "N/I")
-            if dia:
-                agrupado[dia] = agrupado.get(dia, 0) + 1
+            if filters.get("turma_nome") and filters["turma_nome"] != "Todas" and filters["turma_nome"] not in r.get("turma_nome", ""):
+                continue
+            if filters.get("formador") and filters["formador"] != "Todos" and r.get("turma_formador") != filters["formador"]:
+                continue
+            if filters.get("tutora") and filters["tutora"] != "Todas" and r.get("tutora") != filters["tutora"]:
+                continue
+            if filters.get("dia_semana") and filters["dia_semana"] != "Todos" and r.get("turma_dia") != filters["dia_semana"]:
+                continue
+            if filters.get("periodo_turno") and filters["periodo_turno"] != "Todos" and filters["periodo_turno"].lower() not in r.get("periodo_turno", "").lower():
+                continue
+            if filters.get("situacao") and filters["situacao"] != "Todas" and r.get("situacao") != filters["situacao"]:
+                continue
+            if filters.get("nre") and filters["nre"] != "Todos" and r.get("nre") != filters["nre"]:
+                continue
+            if filters.get("search"):
+                q = filters["search"].lower()
+                matched = (
+                    q in r.get("cursista_nome", "").lower() or
+                    q in str(r.get("cgm", "")).lower() or
+                    q in r.get("cursista_email", "").lower() or
+                    q in r.get("turma_nome", "").lower() or
+                    q in r.get("turma_formador", "").lower()
+                )
+                if not matched:
+                    continue
+            filtered.append(r)
 
-        ordem_dias = ["SEGUNDA-FEIRA", "TERÇA-FEIRA", "QUARTA-FEIRA", "QUINTA-FEIRA"]
-        return [
-            {"dia_semana": dia, "total_matriculas": agrupado.get(dia, 0)}
-            for dia in ordem_dias if dia in agrupado
-        ]
+        return filtered
 
     @classmethod
-    def get_tabela_turmas(cls, filters: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Retorna a tabela de Turmas com ocupação e formador responsável."""
-        try:
-            sql = "SELECT * FROM vw_matriculas_por_turma LIMIT 100;"
-            rows = execute_query(sql)
-            if rows and len(rows) > 0:
-                items = [
-                    {
-                        "turma_id": r.get("turma_id"),
-                        "turma_nome": r.get("turma_nome"),
-                        "turma_formador": r.get("turma_formador"),
-                        "turma_dia": r.get("turma_dia"),
-                        "turma_horario": r.get("turma_horario"),
-                        "total_cursistas": int(r.get("total_cursistas") or 0),
-                        "emails_enviados": int(r.get("emails_enviados") or 0),
-                        "taxa_confirmacao_pct": float(r.get("taxa_confirmacao_pct") or 0.0)
-                    }
-                    for r in rows
-                ]
-                return {"items": items, "total": len(items), "status": "success"}
-        except Exception:
-            pass
-
-        # Consolidação via db/matriculados.json
-        data = cls._load_json_data()
-        turmas_dict: Dict[str, Dict[str, Any]] = {}
+    def get_cursistas_por_formador(cls, filters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """Retorna o ranking de contagem de cursistas por Formador / Tutora."""
+        data = cls.get_cursistas(filters)
+        agrupado: Dict[str, Dict[str, Any]] = {}
+        
         for r in data:
-            tid = r.get("turma_id", "")
-            if not tid:
-                continue
-            if tid not in turmas_dict:
-                turmas_dict[tid] = {
-                    "turma_id": tid,
-                    "turma_nome": r.get("turma_nome", ""),
-                    "turma_formador": r.get("turma_formador", ""),
-                    "turma_dia": r.get("turma_dia", ""),
-                    "turma_horario": r.get("turma_horario", ""),
+            f = r.get("turma_formador", "N/I")
+            if f not in agrupado:
+                agrupado[f] = {
+                    "formador": f,
                     "total_cursistas": 0,
-                    "emails_enviados": 0
+                    "matriculados": 0,
+                    "remanejados": 0,
+                    "desistentes": 0,
+                    "turmas_set": set(),
+                    "freq_total": 0.0
                 }
-            turmas_dict[tid]["total_cursistas"] += 1
-            if r.get("status_email") == "enviado":
-                turmas_dict[tid]["emails_enviados"] += 1
+            agrupado[f]["total_cursistas"] += 1
+            sit = r.get("situacao", "Matriculado")
+            if sit == "Matriculado": agrupado[f]["matriculados"] += 1
+            elif sit == "Remanejado": agrupado[f]["remanejados"] += 1
+            elif sit == "Desistente": agrupado[f]["desistentes"] += 1
 
-        items = list(turmas_dict.values())
-        for t in items:
-            t["taxa_confirmacao_pct"] = round((t["emails_enviados"] * 100.0) / t["total_cursistas"], 2) if t["total_cursistas"] > 0 else 0.0
+            if r.get("turma_nome"):
+                agrupado[f]["turmas_set"].add(r.get("turma_nome"))
+            agrupado[f]["freq_total"] += float(r.get("frequencia_pct", 100.0))
 
-        items.sort(key=lambda x: x["total_cursistas"], reverse=True)
-        return {"items": items, "total": len(items), "status": "json_real"}
+        result = []
+        for f, val in agrupado.items():
+            cnt = val["total_cursistas"]
+            result.append({
+                "formador": f,
+                "qtd_turmas": len(val["turmas_set"]),
+                "total_cursistas": cnt,
+                "matriculados": val["matriculados"],
+                "remanejados": val["remanejados"],
+                "desistentes": val["desistentes"],
+                "frequencia_media_pct": round(val["freq_total"] / cnt, 2) if cnt > 0 else 0.0
+            })
+
+        result.sort(key=lambda x: x["total_cursistas"], reverse=True)
+        return result
+
+    @classmethod
+    def update_frequencia(cls, cgm: str, nova_frequencia_pct: float) -> bool:
+        """Atualiza a porcentagem de frequência de um cursista pelo seu CGM."""
+        data = cls._load_data()
+        updated = False
+        for r in data:
+            if str(r.get("cgm")) == str(cgm) or r.get("id") == str(cgm):
+                r["frequencia_pct"] = max(0.0, min(100.0, float(nova_frequencia_pct)))
+                updated = True
+
+        if updated:
+            return cls._save_data(data)
+        return False
