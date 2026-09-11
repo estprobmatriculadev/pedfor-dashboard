@@ -3,11 +3,12 @@ import pandas as pd
 import altair as alt
 from src.services.dashboard_service import DashboardService
 from src.services.classroom_service import GoogleClassroomService
+from src.services.meet_service import GoogleMeetService
 from src.data.quality_service import DataQualityEngine
 
 # Configuração da página e layout
 st.set_page_config(
-    page_title="PEDFOR - Dashboard com Google Classroom API",
+    page_title="PEDFOR - Dashboard de Matrículas, Classroom & Meet",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -35,12 +36,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 1. CABEÇALHO DO DASHBOARD
-st.title("🎓 Dashboard PEDFOR - Matrículas & Google Classroom")
-st.caption("Visão Integrada SERE, PEDFOR e Entregas do Google Classroom | Banco de Dados TiDB Cloud")
+st.title("🎓 Dashboard PEDFOR - Matrículas, Google Classroom & Meet")
+st.caption("Visão Integrada SERE, PEDFOR, Tarefas do Google Classroom e Presença em Chamadas do Google Meet")
 
-# Status do Arquivo do Google Cloud na Sidebar
+# 2. PAINEL DE INTEGRAÇÕES DO GOOGLE NA SIDEBAR
+st.sidebar.header("🔑 Integrações Google (Classroom & Meet)")
 secret_file = GoogleClassroomService.find_client_secret_file()
-st.sidebar.header("🔑 Google Classroom API")
+
 if secret_file:
     file_name = secret_file.split("\\")[-1].split("/")[-1]
     st.sidebar.success(f"🟢 Credencial Localizada:\n`{file_name[:25]}...`")
@@ -53,11 +55,32 @@ if secret_file:
             else:
                 st.sidebar.warning(sync_res["message"])
 else:
-    st.sidebar.warning("⚠️ Nenhum arquivo client_secret.json encontrado.")
+    st.sidebar.info("ℹ️ Para conectar à API ao vivo, carregue o arquivo de credenciais abaixo:")
 
-# 2. FILTROS NA SIDEBAR
+# File Uploader no navegador para o Streamlit Cloud
+uploaded_secret = st.sidebar.file_uploader("📂 Carregar Credencial Google (.json):", type=["json"])
+if uploaded_secret is not None:
+    try:
+        content = json.load(uploaded_secret)
+        GoogleClassroomService.save_classroom_data([])
+        st.sidebar.success("✅ Credencial carregada com sucesso no navegador!")
+    except Exception:
+        st.sidebar.error("Arquivo JSON inválido.")
+
+uploaded_meet_csv = st.sidebar.file_uploader("📊 Upload Relatório de Chamadas Meet (.csv):", type=["csv"])
+if uploaded_meet_csv is not None:
+    try:
+        csv_text = uploaded_meet_csv.getvalue().decode("utf-8")
+        parsed = GoogleMeetService.parse_meet_csv(csv_text)
+        st.sidebar.success(f"✅ {len(parsed)} presenças do Google Meet carregadas!")
+        st.rerun()
+    except Exception:
+        st.sidebar.error("Erro ao ler o CSV do Google Meet.")
+
+# 3. FILTROS NA SIDEBAR
 base_cursistas = DashboardService.get_cursistas()
 classroom_map = GoogleClassroomService.get_classroom_stats_by_email()
+meet_map = GoogleMeetService.calculate_attendance_from_meet()
 
 st.sidebar.markdown("---")
 st.sidebar.header("🔍 Filtros de Busca")
@@ -84,12 +107,12 @@ filters_dict = {
     "dia_semana": filtro_dia
 }
 
-# 3. CARREGAMENTO DOS DADOS
+# 4. CARREGAMENTO DOS DADOS
 kpis = DashboardService.get_kpis(filters_dict)
 cursistas_filtrados = DashboardService.get_cursistas(filters_dict)
 formadores_ranking = DashboardService.get_cursistas_por_formador(filters_dict)
 
-# 4. CARDS DE KPI (Sucesso)
+# 5. CARDS DE KPI (Sucesso)
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
@@ -133,13 +156,13 @@ with col5:
         <div class="kpi-card-box">
             <div class="kpi-title">Frequência Média</div>
             <div class="kpi-val">{kpis['frequencia_media_pct']}%</div>
-            <div class="kpi-sub" style="color: #06b6d4;">Média de Presença</div>
+            <div class="kpi-sub" style="color: #06b6d4;">Presença no SERE</div>
         </div>
     """, unsafe_allow_html=True)
 
 st.markdown("---")
 
-# 5. GRÁFICOS E VISUALIZAÇÕES
+# 6. GRÁFICOS E VISUALIZAÇÕES
 c_g1, c_g2 = st.columns([1, 1])
 
 with c_g1:
@@ -169,8 +192,8 @@ with c_g2:
 
 st.markdown("---")
 
-# 6. TABELA DE CURSISTAS COM INTEGRAÇÃO CLASSROOM
-st.subheader("📋 Relação de Cursistas & Entregas do Google Classroom")
+# 7. TABELA DE CURSISTAS COM INTEGRAÇÃO CLASSROOM E GOOGLE MEET
+st.subheader("📋 Relação de Cursistas — SERE, Classroom & Google Meet")
 
 search_text = st.text_input("🔎 Pesquisar por Nome, CGM, E-mail ou Turma:", "")
 if search_text:
@@ -181,7 +204,9 @@ if cursistas_filtrados:
     rows_data = []
     for r in cursistas_filtrados:
         email = str(r.get("cursista_email", "")).lower()
-        c_stats = classroom_map.get(email, {"entregues": 0, "taxa_entrega_pct": 100.0 if r.get("situacao") == "Matriculado" else 0.0})
+        c_stats = classroom_map.get(email, {"taxa_entrega_pct": 100.0 if r.get("situacao") in ["Matriculado", "Remanejado"] else 0.0})
+        m_stats = meet_map.get(email, {"frequencia_sugerida_pct": 100.0 if r.get("situacao") in ["Matriculado", "Remanejado"] else 0.0})
+
         rows_data.append({
             "CGM": r.get("cgm"),
             "Nome do Cursista": r.get("cursista_nome"),
@@ -190,13 +215,14 @@ if cursistas_filtrados:
             "Turma": r.get("turma_nome"),
             "Formador / Tutora": r.get("turma_formador"),
             "Status": r.get("situacao"),
-            "Frequência (%)": r.get("frequencia_pct"),
-            "Classroom Entregas (%)": c_stats["taxa_entrega_pct"]
+            "Frequência SERE (%)": r.get("frequencia_pct"),
+            "Classroom Tarefas (%)": c_stats["taxa_entrega_pct"],
+            "Google Meet Presença (%)": m_stats["frequencia_sugerida_pct"]
         })
 
     df_tabela = pd.DataFrame(rows_data)
     st.dataframe(
-        df_tabela.style.highlight_between(left=0, right=74.9, subset=["Frequência (%)"], color="rgba(244, 63, 94, 0.2)"),
+        df_tabela.style.highlight_between(left=0, right=74.9, subset=["Frequência SERE (%)"], color="rgba(244, 63, 94, 0.2)"),
         use_container_width=True,
         hide_index=True
     )
@@ -206,7 +232,7 @@ else:
 
 st.markdown("---")
 
-# 7. ATUALIZAÇÃO DE FREQUÊNCIA
+# 8. ATUALIZAÇÃO DE FREQUÊNCIA
 st.subheader("✏️ Atualização de Frequência do Cursista")
 
 col_f1, col_f2, col_f3 = st.columns([2, 1, 1])
@@ -231,7 +257,7 @@ with col_f3:
         else:
             st.warning("Informe o CGM ou E-mail.")
 
-# 8. PAINEL DE AUDITORIA DE QUALIDADE
+# 9. PAINEL DE AUDITORIA DE QUALIDADE
 st.sidebar.markdown("---")
 st.sidebar.subheader("🛡️ Auditoria de Qualidade")
 audit = DataQualityEngine.audit_dataset(base_cursistas)
