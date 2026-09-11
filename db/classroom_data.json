@@ -1,0 +1,18 @@
+[
+  {
+    "cursista_email": "prof1@escola.pr.gov.br",
+    "status": "TURNED_IN"
+  },
+  {
+    "cursista_email": "prof1@escola.pr.gov.br",
+    "status": "TURNED_IN"
+  },
+  {
+    "cursista_email": "prof1@escola.pr.gov.br",
+    "status": "LATE"
+  },
+  {
+    "cursista_email": "prof2@escola.pr.gov.br",
+    "status": "NEW"
+  }
+]
