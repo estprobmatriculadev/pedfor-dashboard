@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from src.services.dashboard_service import DashboardService
+from src.services.classroom_service import GoogleClassroomService
 from src.data.quality_service import DataQualityEngine
 
 # Configuração da página e layout
 st.set_page_config(
-    page_title="PEDFOR - Dashboard de Matrículas e Frequência",
+    page_title="PEDFOR - Dashboard com Google Classroom API",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -34,14 +35,32 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 1. CABEÇALHO DO DASHBOARD
-st.title("🎓 Dashboard de Matrículas, Cursistas e Frequência - PEDFOR")
-st.caption("Consulta unificada SERE / PEDFOR | Filtros por Turma, Formador, NRE, Período, Dia da Semana e Situação do Cursista")
+st.title("🎓 Dashboard PEDFOR - Matrículas & Google Classroom")
+st.caption("Visão Integrada SERE, PEDFOR e Entregas do Google Classroom | Banco de Dados TiDB Cloud")
 
-# Carregar lista base para filtros
-base_cursistas = DashboardService.get_cursistas()
+# Status do Arquivo do Google Cloud na Sidebar
+secret_file = GoogleClassroomService.find_client_secret_file()
+st.sidebar.header("🔑 Google Classroom API")
+if secret_file:
+    file_name = secret_file.split("\\")[-1].split("/")[-1]
+    st.sidebar.success(f"🟢 Credencial Localizada:\n`{file_name[:25]}...`")
+    if st.sidebar.button("🔗 Sincronizar Google Classroom API", use_container_width=True):
+        with st.spinner("Conectando ao Google Classroom API..."):
+            sync_res = GoogleClassroomService.sync_from_google_api()
+            if sync_res["success"]:
+                st.sidebar.success(sync_res["message"])
+                st.rerun()
+            else:
+                st.sidebar.warning(sync_res["message"])
+else:
+    st.sidebar.warning("⚠️ Nenhum arquivo client_secret.json encontrado.")
 
 # 2. FILTROS NA SIDEBAR
-st.sidebar.header("🔍 Filtros Avançados de Busca")
+base_cursistas = DashboardService.get_cursistas()
+classroom_map = GoogleClassroomService.get_classroom_stats_by_email()
+
+st.sidebar.markdown("---")
+st.sidebar.header("🔍 Filtros de Busca")
 
 nres_list = ["Todos"] + sorted(list(set(r["nre"] for r in base_cursistas if r.get("nre"))))
 filtro_nre = st.sidebar.selectbox("Núcleo Regional (NRE):", nres_list)
@@ -56,7 +75,6 @@ filtro_situacao = st.sidebar.selectbox("Status do Cursista:", ["Todas", "Matricu
 filtro_turno = st.sidebar.selectbox("Período / Turno:", ["Todos", "Manhã", "Tarde", "Noite"])
 filtro_dia = st.sidebar.selectbox("Dia da Semana:", ["Todos", "SEGUNDA-FEIRA", "TERÇA-FEIRA", "QUARTA-FEIRA", "QUINTA-FEIRA"])
 
-# Dicionário de filtros para o serviço
 filters_dict = {
     "nre": filtro_nre,
     "formador": filtro_formador,
@@ -66,17 +84,12 @@ filters_dict = {
     "dia_semana": filtro_dia
 }
 
-# 3. CARREGAMENTO DOS DADOS COM TRATAMENTO DE ESTADOS DE INTERFACE
-with st.spinner("Consultando dados de cursistas e turmas..."):
-    kpis = DashboardService.get_kpis(filters_dict)
-    cursistas_filtrados = DashboardService.get_cursistas(filters_dict)
-    formadores_ranking = DashboardService.get_cursistas_por_formador(filters_dict)
+# 3. CARREGAMENTO DOS DADOS
+kpis = DashboardService.get_kpis(filters_dict)
+cursistas_filtrados = DashboardService.get_cursistas(filters_dict)
+formadores_ranking = DashboardService.get_cursistas_por_formador(filters_dict)
 
-if not kpis:
-    st.error("⚠️ Ocorreu um erro ao carregar o dashboard. Tente novamente.")
-    st.stop()
-
-# 4. CARDS DE KPI (Estado Success)
+# 4. CARDS DE KPI (Sucesso)
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
@@ -142,8 +155,6 @@ with c_g1:
             tooltip=['Status', 'Quantidade']
         ).properties(height=300)
         st.altair_chart(donut, use_container_width=True)
-    else:
-        st.info("Nenhum registro para exibir no gráfico.")
 
 with c_g2:
     st.subheader("👥 Total de Cursistas por Formador / Tutora")
@@ -158,32 +169,44 @@ with c_g2:
 
 st.markdown("---")
 
-# 6. TABELA DE CONSULTA DE CURSISTAS & ESTADO VAZIO
-st.subheader("📋 Consulta e Informações dos Cursistas")
+# 6. TABELA DE CURSISTAS COM INTEGRAÇÃO CLASSROOM
+st.subheader("📋 Relação de Cursistas & Entregas do Google Classroom")
 
-search_text = st.text_input("🔎 Pesquisar por Nome do Cursista, CGM, E-mail ou Turma:", "")
+search_text = st.text_input("🔎 Pesquisar por Nome, CGM, E-mail ou Turma:", "")
 if search_text:
     filters_dict["search"] = search_text
     cursistas_filtrados = DashboardService.get_cursistas(filters_dict)
 
 if cursistas_filtrados:
-    df_tabela = pd.DataFrame(cursistas_filtrados)
-    df_tabela = df_tabela[["cgm", "cursista_nome", "cursista_email", "nre", "turma_nome", "turma_formador", "turma_dia", "turma_horario", "situacao", "frequencia_pct"]]
-    df_tabela.columns = ["CGM", "Nome do Cursista", "E-mail Institucional", "NRE", "Turma", "Formador / Tutora", "Dia da Semana", "Horário / Turno", "Status na Turma", "Frequência (%)"]
-    
+    rows_data = []
+    for r in cursistas_filtrados:
+        email = str(r.get("cursista_email", "")).lower()
+        c_stats = classroom_map.get(email, {"entregues": 0, "taxa_entrega_pct": 100.0 if r.get("situacao") == "Matriculado" else 0.0})
+        rows_data.append({
+            "CGM": r.get("cgm"),
+            "Nome do Cursista": r.get("cursista_nome"),
+            "E-mail Institucional": r.get("cursista_email"),
+            "NRE": r.get("nre"),
+            "Turma": r.get("turma_nome"),
+            "Formador / Tutora": r.get("turma_formador"),
+            "Status": r.get("situacao"),
+            "Frequência (%)": r.get("frequencia_pct"),
+            "Classroom Entregas (%)": c_stats["taxa_entrega_pct"]
+        })
+
+    df_tabela = pd.DataFrame(rows_data)
     st.dataframe(
         df_tabela.style.highlight_between(left=0, right=74.9, subset=["Frequência (%)"], color="rgba(244, 63, 94, 0.2)"),
         use_container_width=True,
         hide_index=True
     )
-    st.caption(f"Mostrando {len(df_tabela):,} cursistas correspondentes ao filtro.")
+    st.caption(f"Mostrando {len(df_tabela):,} cursistas no filtro.")
 else:
-    # Estado Vazio
-    st.warning("⚠️ Nenhum cursista encontrado para os critérios de busca selecionados.")
+    st.warning("⚠️ Nenhum cursista encontrado.")
 
 st.markdown("---")
 
-# 7. SEÇÃO DE ATUALIZAÇÃO DE FREQUÊNCIA (REQUISITO EXPLÍCITO)
+# 7. ATUALIZAÇÃO DE FREQUÊNCIA
 st.subheader("✏️ Atualização de Frequência do Cursista")
 
 col_f1, col_f2, col_f3 = st.columns([2, 1, 1])
@@ -201,16 +224,15 @@ with col_f3:
         if cgm_input:
             sucesso = DashboardService.update_frequencia(cgm_input.strip(), nova_freq)
             if sucesso:
-                st.success(f"✅ Frequência do cursista {cgm_input} atualizada com sucesso para {nova_freq}%!")
+                st.success(f"✅ Frequência atualizada com sucesso para {nova_freq}%!")
                 st.rerun()
             else:
-                st.error(f"❌ Cursista com CGM/E-mail '{cgm_input}' não foi localizado.")
+                st.error(f"❌ Cursista '{cgm_input}' não localizado.")
         else:
-            st.warning("Por favor digite o CGM ou E-mail do cursista.")
+            st.warning("Informe o CGM ou E-mail.")
 
 # 8. PAINEL DE AUDITORIA DE QUALIDADE
 st.sidebar.markdown("---")
-st.sidebar.subheader("🛡️ Auditoria de Qualidade de Dados")
+st.sidebar.subheader("🛡️ Auditoria de Qualidade")
 audit = DataQualityEngine.audit_dataset(base_cursistas)
 st.sidebar.metric("Data Quality Score", f"{audit['quality_score']}%", delta="Excelente" if audit['quality_score'] >= 95 else "Atenção")
-st.sidebar.caption(f"Total Registros: {audit['total_records']} | NREs: {len(nres_list)-1} | Duplicados: {audit['duplicate_count']}")

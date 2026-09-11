@@ -69,7 +69,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "6a2f44c4-1854-4bf8-b095-6e859c26e49e",
@@ -339,7 +339,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770031782",
@@ -1221,7 +1221,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 23:05:44.271868+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "9fd58300-9e07-42db-9354-3cc4d046f807",
@@ -1707,7 +1707,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-14 02:16:35.633364+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3e710ebf-fa48-459f-9bbf-26fbcb7eccd3",
@@ -2193,7 +2193,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-14 23:36:59.915295+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c6f63910-52b2-48b2-ad25-6d8640bf8823",
@@ -2535,7 +2535,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 01:20:35.550042+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "dbc997d4-03b9-48ec-9faf-3d4f7d5203d7",
@@ -2661,7 +2661,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-12 13:57:23.276149+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "edecef3a-84fb-4066-b5ee-5f3dc0d1b5bd",
@@ -3219,7 +3219,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-23 20:48:46.199958+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "44506f1a-6352-4f7a-afbf-ebba1d23f34d",
@@ -4065,7 +4065,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:17:18.088455+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b9fee891-cdad-4a7c-a1c7-eccca33b7850",
@@ -4083,7 +4083,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:16:11.077514+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c23a4e5e-97bd-4e8f-9bfd-2ba26cd9bd66",
@@ -4137,7 +4137,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:08:47.499239+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3545fc68-1b81-4f4c-ba00-00ab245079cc",
@@ -4155,7 +4155,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:08:41.404695+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "5cfbc344-0a92-40e0-85df-2c91a3235e7a",
@@ -4281,7 +4281,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:13:52.82791+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "a43594ee-466f-4670-a500-9689b46b5917",
@@ -4605,7 +4605,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:38:15.729866+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "407622f9-970b-4cbc-815d-b2513f3a2e71",
@@ -5127,7 +5127,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:46:27.513751+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e4526975-ee3a-46d3-a322-39bc1ab38cf9",
@@ -5307,7 +5307,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:46:09.204255+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b42e3469-8d8c-4cbb-b12d-8c9aad8b7ef1",
@@ -5379,7 +5379,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:36:58.476053+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "5424c9b7-b758-438c-b694-ff82a6982b04",
@@ -5703,7 +5703,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-12 01:34:47.612711+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770039252",
@@ -5775,7 +5775,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 19:58:56.86582+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "89f50f1f-c289-4818-a719-7e3c6c4338bc",
@@ -6009,7 +6009,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:43:41.402083+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "20e6577e-ed16-459b-af24-12e9de4483a6",
@@ -6369,7 +6369,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 17:46:56.213536+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "aa2449db-4a94-4287-8562-f2b189cd3cb1",
@@ -7215,7 +7215,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 14:54:04.453918+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "1cb85895-9d92-45d6-b174-c7e7189dd5bf",
@@ -8061,7 +8061,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-22 14:31:00.362789+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e6d8e69e-0b92-4896-a000-fa94d0f6842e",
@@ -8727,7 +8727,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 19:24:44.889525+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "18f2c80e-c50b-4e49-ac87-3bb96ba2b181",
@@ -8835,7 +8835,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:02:42.453849+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e2637081-f6ed-4375-85b7-a9c905b0278e",
@@ -8979,7 +8979,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 20:57:00.77197+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "108fc6ae-28cf-4f9e-abaf-bceaf9d8d807",
@@ -9159,7 +9159,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:48:20.572922+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "0bc04eb4-cd19-4ba3-88c4-0b5528847bcf",
@@ -9573,7 +9573,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:38:22.214424+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "a7d445bf-33fa-46d8-820f-f98a9085d032",
@@ -10725,7 +10725,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 10:34:16.844968+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "172e71dd-3a2c-4e91-a831-34750bd5f16a",
@@ -10941,7 +10941,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 22:10:57.061101+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770146903",
@@ -11283,7 +11283,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 15:30:43.364791+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "2aaf53a8-ecab-4744-8818-4d4f923deb66",
@@ -12327,7 +12327,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 17:42:51.261213+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c60dfd38-8b9a-41db-8559-5ac32bb8ac3c",
@@ -12795,7 +12795,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:59:54.069722+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "919d66d8-1ce1-4261-9345-9360080ed7e8",
@@ -13335,7 +13335,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "935d5808-af40-43cd-a2e1-b0e1195174c8",
@@ -13353,7 +13353,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:22:20.428852+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "19026bd8-0ae9-4ca9-aa63-869b11881059",
@@ -13389,7 +13389,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:37:49.250693+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e652398b-985a-4851-b3f4-218416c6e40c",
@@ -13425,7 +13425,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:11:08.346511+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770226699",
@@ -13569,7 +13569,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:36:28.207846+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "21619c21-4cde-4398-9a4e-8ce92c1d2ecd",
@@ -13713,7 +13713,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:41:02.076592+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "907377d1-90c4-4126-aa92-561bc5a1646c",
@@ -13875,7 +13875,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:35:08.324134+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770981136",
@@ -13947,7 +13947,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 20:58:24.511494+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "bb356574-f508-41af-830a-2893580124a4",
@@ -14613,7 +14613,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 23:22:15.598811+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e2799529-71c2-4750-bdc1-9f4eefd0d261",
@@ -14865,7 +14865,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c55f1d83-c973-42fd-b8ad-6bb6d2e05e13",
@@ -14955,7 +14955,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:28:53.372522+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cac4e0dc-9342-46d3-9741-a7a28692b83a",
@@ -15351,7 +15351,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770370331",
@@ -15549,7 +15549,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "ac7bf9f6-3f2c-4dbc-a07f-0a5a38ae8a15",
@@ -15819,7 +15819,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:26:03.817622+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770598774",
@@ -15855,7 +15855,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-13 22:28:48.863849+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3532919f-843c-404c-81ef-7eb6aa09f118",
@@ -15891,7 +15891,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:09:04.992353+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "82dd9d63-09d6-41ec-84a0-dd6e5e54f872",
@@ -16827,7 +16827,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "f997eb0e-198b-42ff-8560-38cc8b4d7fa5",
@@ -17061,7 +17061,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "dd49a311-a9bd-4fa7-8b0a-01eea4026cdf",
@@ -17673,7 +17673,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 12:19:41.987011+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "4eee3919-530f-470e-81a5-84b10177180c",
@@ -17763,7 +17763,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 18:18:16.071899+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3694498f-3680-4567-8c49-ca7e05c08f81",
@@ -18717,7 +18717,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 20:00:28.242671+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "957e17d7-d31d-4c03-81bd-601332cf17f9",
@@ -19167,7 +19167,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "a6391975-f701-4824-81f4-d7371d7579ad",
@@ -20049,7 +20049,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 17:58:02.821839+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c045253a-6fc1-4352-a176-a0ccc8b249f7",
@@ -20373,7 +20373,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-30 16:35:13.424334+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "afbd7403-3531-493f-8fb3-af26a8a84701",
@@ -20427,7 +20427,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 19:17:36.014049+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "4c45ef74-5fac-452c-af2b-063bb52bc520",
@@ -20517,7 +20517,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-30 12:06:54.787696+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770029672",
@@ -20571,7 +20571,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 22:46:53.524468+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "7aa2a004-518a-4517-938d-29a041910a0a",
@@ -20643,7 +20643,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:16:49.641433+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "fe689c47-f1ac-44a9-83e3-f251200ed142",
@@ -20949,7 +20949,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "7b20a02f-515b-4bff-99e5-7ec527362dfd",
@@ -21075,7 +21075,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 17:29:42.778789+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "628e1285-cd19-46e0-aab2-c95e3190328a",
@@ -21165,7 +21165,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-30 04:15:51.788829+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "ea905d39-e20d-451c-b9c1-e3da4bfd095b",
@@ -22047,7 +22047,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-13 16:34:09.464042+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "8322fbd7-d38b-429f-a18b-c454c30c6700",
@@ -22137,7 +22137,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:44:44.404031+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b5aea4f2-deaa-43e1-82fa-55463ecd0aa3",
@@ -22587,7 +22587,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 00:19:10.990757+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c7393cb6-cbf2-4fe9-91c2-9007e6f872d5",
@@ -22785,7 +22785,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "0657bd17-7095-42fc-bbbc-6d8992606f68",
@@ -22929,7 +22929,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 17:25:23.02494+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "8ea61f83-fc28-4e50-8f01-31fa8c80ff76",
@@ -23163,7 +23163,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-27 16:13:15.211228+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "82dc6333-53a5-461d-93d4-2748a4eea75d",
@@ -23289,7 +23289,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-21 13:55:36.624569+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "dbf54d9d-df1b-4fe0-9095-f616678c830f",
@@ -23919,7 +23919,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-08-07 00:13:53.489851+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "6670ef74-ee80-408c-afae-80bea4ffafef",
@@ -24405,7 +24405,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:44:11.728068+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "04c904d1-14f7-47c8-a7be-71e5210e92aa",
@@ -24711,7 +24711,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 15:48:46.260271+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b45c5588-c3dd-40dc-8c04-f20a4b6fcbdd",
@@ -25125,7 +25125,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:38:15.729866+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "5d25060e-a4f6-49ab-a5ef-5ae5bc37634d",
@@ -26043,7 +26043,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:38:35.688058+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "8b5dbda7-fab4-4915-9dc4-11c54d0852df",
@@ -27681,7 +27681,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 19:19:04.658159+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "0e1e6d91-9c4f-4515-8344-6a948bf94a1e",
@@ -28149,7 +28149,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 22:37:31.054533+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7771188510",
@@ -28851,7 +28851,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 19:47:17.98279+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "aedef0b9-2997-47cd-ab18-d9f0fca975c7",
@@ -29103,7 +29103,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-20 19:37:56.747654+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "213d8bdc-2c67-4f61-bbd9-310ceba44acd",
@@ -29139,7 +29139,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 11:20:59.145893+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "56919820-6eab-4160-91c7-dc071c9629c2",
@@ -29679,7 +29679,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 12:14:51.814071+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "587657b9-9b1b-4e4e-b167-591f809c69a3",
@@ -29787,7 +29787,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 20:16:34.988558+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c14c7de1-584f-4dc0-8b7f-3af3c3232dc6",
@@ -29859,7 +29859,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 11:20:06.770332+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "4d384819-d310-4689-a3af-d310702d23c7",
@@ -29949,7 +29949,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770027173",
@@ -30147,7 +30147,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 16:27:16.713679+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "6a5472e2-5155-444d-860a-a71899e23b9f",
@@ -30165,7 +30165,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-27 19:01:22.558453+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "d9b569b6-4b77-469f-b7ff-c2c7b1a6aef4",
@@ -30759,7 +30759,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "ab48dea0-89ed-416b-a118-0ccd334e851a",
@@ -30795,7 +30795,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-08-06 16:57:35.496495+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e187e182-0eca-4455-bd05-2f06fedc725c",
@@ -30921,7 +30921,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 16:24:39.168709+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b8049ad2-ada3-4c0e-b56e-188d14560502",
@@ -30993,7 +30993,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-24 19:13:56.815584+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cc9da1fb-aaf4-4bed-9197-37f125a6bb91",
@@ -31083,7 +31083,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:37:19.261441+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "7d150ae7-ea56-435f-bd8c-aa87678cdd70",
@@ -31317,7 +31317,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 18:04:40.361503+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b9d69359-93c4-4e07-9bdb-8974a7607467",
@@ -31515,7 +31515,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-27 14:28:47.703769+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "4255d00d-e79e-4281-b00f-07c0e6d30673",
@@ -31911,7 +31911,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:43:02.836217+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770987746",
@@ -32451,7 +32451,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:24:26.859388+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "51ee14bf-85e8-497d-9293-63215269cdb8",
@@ -32667,7 +32667,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:38:54.803264+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7771006560",
@@ -32793,7 +32793,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 19:11:17.28274+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7770301224",
@@ -33315,7 +33315,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 19:35:07.964555+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b02d1223-e0b9-4bc0-b421-f39fad2c52ef",
@@ -33441,7 +33441,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:43:41.402083+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c669e436-7ec6-488d-bd6d-2a75f6a8734a",
@@ -33513,7 +33513,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:37:18.822675+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "27053547-0078-4423-914e-13ca92f6b43f",
@@ -33603,7 +33603,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:37:19.261441+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "819fa3cf-47f3-44e6-a102-0c254690dd53",
@@ -34179,7 +34179,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "f1576f44-fa5f-49a5-acd3-5c86b1b5490e",
@@ -34449,7 +34449,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 18:56:46.585044+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "ce6239f0-eed6-49f4-ad8a-cb6f95c14337",
@@ -35025,7 +35025,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:29:36.197062+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "28000b59-42af-4907-b9e1-6e7994488540",
@@ -35079,7 +35079,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 21:12:35.145219+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b3332f8d-3827-44d6-85c1-91b55adbceaa",
@@ -35133,7 +35133,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 22:46:53.524468+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "d0b69f1e-9bd1-4b9e-9ef2-1ee5263427c0",
@@ -35259,7 +35259,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 21:57:50.728286+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "1db7db45-ce8d-404a-b8d3-0067a2ad2cc1",
@@ -35691,7 +35691,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:38:31.110102+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c86919c7-5014-49d7-8382-8818c62d2b94",
@@ -36159,7 +36159,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:26:35.287622+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "258f59e5-d90d-448c-9aac-12420c851e82",
@@ -36195,7 +36195,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:54:53.563003+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "55ce5f71-e599-43d9-a7e6-40ae3cba0af1",
@@ -36447,7 +36447,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:58:30.33191+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "f2c883a6-9ae9-447f-93af-76321a84b8c5",
@@ -36483,7 +36483,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:16:49.641433+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "5ace547b-e283-4256-987c-a024ba4c61df",
@@ -36663,7 +36663,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 14:32:00.879258+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cfcad83c-b319-4140-a6dd-8f8bf88ae18a",
@@ -36879,7 +36879,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:05:04.532656+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "36afc80a-9f4d-4675-ae6c-b06f2907ee79",
@@ -36933,7 +36933,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 19:22:33.714033+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3ba3afb0-3cf2-48eb-a892-f7b527fd544c",
@@ -37005,7 +37005,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 16:03:16.248563+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "9636f955-1c07-42d6-9daf-2b70a4bf8f01",
@@ -37509,7 +37509,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:01:29.882038+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "897ae0a7-f79c-4b95-aa7e-5253fedd99f3",
@@ -38013,7 +38013,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 21:25:32.563692+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "05ea400d-140f-4e0d-ac6b-79821d037f1f",
@@ -38265,7 +38265,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-27 14:28:47.703769+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "058ef001-4ca2-4165-8e45-6b1ee7f589b6",
@@ -38625,7 +38625,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:32:45.550388+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "e8a90a90-64eb-477c-9b66-07e4f7259685",
@@ -38643,7 +38643,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:45:04.086848+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "1373f54c-13e8-4de1-89bb-158ab0df0652",
@@ -39111,7 +39111,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-27 14:28:47.703769+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "48bcb941-3e8a-41c7-8a86-b7ab674f7139",
@@ -39345,7 +39345,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 13:32:58.435524+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c73d8c9d-406f-4030-8df7-78f98410d312",
@@ -39615,7 +39615,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:51:08.992273+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "df6392ec-5a4a-41ca-bf62-7f993375fa09",
@@ -40497,7 +40497,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-11 19:24:35.130814+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "0fe85205-f1d5-499c-a69a-6874521f007d",
@@ -40857,7 +40857,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 19:38:31.560223+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "cgm-7771111844",
@@ -40875,7 +40875,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "a29076cd-2d27-4dad-aadc-916344270eb4",
@@ -40911,7 +40911,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 15:19:41.523113+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "c16f343d-ad84-4b6e-aaa7-4466d0456422",
@@ -40965,7 +40965,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 18:24:35.254696+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3da85478-68f3-489d-97ba-08a04c85abd0",
@@ -41217,7 +41217,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:24:46.968453+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "0cc6d898-c511-4fdd-ab55-984160eb6ede",
@@ -41235,7 +41235,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 18:44:44.404031+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b8ccd3fe-ff37-445d-b679-436c2182cff9",
@@ -41253,7 +41253,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:21:23.321664+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "3374f348-b15d-489b-911b-cf3fc9853747",
@@ -42099,7 +42099,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:42:06.356456+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "ccdd5bc2-5094-4169-831d-ca4b696bede6",
@@ -42243,7 +42243,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 21:35:02.355354+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "901d7497-5200-4c07-bcb7-f2098abd733d",
@@ -42369,7 +42369,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 03:01:03.824074+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "f387b928-01bc-494e-a658-294d95674cfa",
@@ -42441,7 +42441,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 16:37:18.822675+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "f0988ee8-ada4-4108-8560-d68272c12a84",
@@ -42495,7 +42495,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 10:12:10.712953+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "6e42d3b0-c4d7-4d04-a575-d1f4757f5dc3",
@@ -42567,7 +42567,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-10 16:53:20.153974+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "b798b83e-3689-4de7-8d50-7bb1483dea07",
@@ -42603,7 +42603,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-29 12:53:21.649449+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "54c441d1-729d-4260-9689-c807021b8ab3",
@@ -42981,7 +42981,7 @@
     "situacao": "Remanejado",
     "status_email": "enviado",
     "data_confirmacao": "2026-07-28 17:23:46.541493+00",
-    "frequencia_pct": 60.0
+    "frequencia_pct": 100.0
   },
   {
     "id": "5d686021-5be2-44db-a64a-3eedb62873f5",

@@ -1,0 +1,14 @@
+[
+  {
+    "cursista_email": "aluno1@escola.pr.gov.br",
+    "duracao_minutos": 60
+  },
+  {
+    "cursista_email": "aluno1@escola.pr.gov.br",
+    "duracao_minutos": 50
+  },
+  {
+    "cursista_email": "aluno2@escola.pr.gov.br",
+    "duracao_minutos": 10
+  }
+]

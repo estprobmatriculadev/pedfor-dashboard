@@ -56,7 +56,8 @@ def run_etl():
 
             json_match = json_by_name.get(norm_n, {})
             
-            freq_padrao = 100.0 if sit == "Matriculado" else (60.0 if sit == "Remanejado" else 0.0)
+            # Cursistas Matriculados e Remanejados continuam ativos no programa (100% frequencia base)
+            freq_padrao = 100.0 if sit in ["Matriculado", "Remanejado"] else 0.0
 
             records.append({
                 "id": json_match.get("id", f"cgm-{cgm}"),
