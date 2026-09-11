@@ -7,13 +7,38 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_db_config():
-    """Retorna o dicionário de configuração de conexão ao TiDB Cloud."""
-    host = os.getenv("TIDB_HOST", "")
-    port = int(os.getenv("TIDB_PORT", "4000"))
-    user = os.getenv("TIDB_USER", "")
-    password = os.getenv("TIDB_PASSWORD", "")
-    database = os.getenv("TIDB_DATABASE", "")
-    ssl_enable = os.getenv("TIDB_SSL_ENABLE", "true").lower() in ("true", "1", "t")
+    """
+    Retorna o dicionário de configuração de conexão ao TiDB Cloud.
+    Suporta leitura via Streamlit Secrets (share.streamlit.io) ou arquivo .env local.
+    """
+    host = ""
+    port = 4000
+    user = ""
+    password = ""
+    database = ""
+    ssl_enable = True
+
+    # 1. Tenta obter das Secrets do Streamlit (nuvem)
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets") and "TIDB_HOST" in st.secrets:
+            host = st.secrets["TIDB_HOST"]
+            port = int(st.secrets.get("TIDB_PORT", 4000))
+            user = st.secrets.get("TIDB_USER", "")
+            password = st.secrets.get("TIDB_PASSWORD", "")
+            database = st.secrets.get("TIDB_DATABASE", "")
+            ssl_enable = str(st.secrets.get("TIDB_SSL_ENABLE", "true")).lower() in ("true", "1", "t")
+    except Exception:
+        pass
+
+    # 2. Fallback para variáveis de ambiente locais (.env)
+    if not host:
+        host = os.getenv("TIDB_HOST", "")
+        port = int(os.getenv("TIDB_PORT", "4000"))
+        user = os.getenv("TIDB_USER", "")
+        password = os.getenv("TIDB_PASSWORD", "")
+        database = os.getenv("TIDB_DATABASE", "")
+        ssl_enable = os.getenv("TIDB_SSL_ENABLE", "true").lower() in ("true", "1", "t")
 
     ssl_config = {"rejectUnauthorized": True} if ssl_enable else None
 
@@ -33,7 +58,7 @@ def get_connection():
     """Retorna uma nova conexão ativa com o banco TiDB."""
     config = get_db_config()
     if not config["host"] or not config["user"]:
-        raise ValueError("Credenciais de banco de dados do TiDB não configuradas no arquivo .env")
+        raise ValueError("Credenciais de banco de dados do TiDB não configuradas no arquivo .env ou Streamlit Secrets")
     return pymysql.connect(**config)
 
 def execute_query(sql: str, params: tuple = ()):
