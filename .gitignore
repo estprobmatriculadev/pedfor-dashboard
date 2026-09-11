@@ -6,9 +6,10 @@ node_modules/
 .env.local
 .env.*.local
 
-# Credentials & Secrets
+# Credentials & Tokens
 client_secret*.json
 credentials*.json
+google_token.json
 *.pem
 
 # Production / Build output

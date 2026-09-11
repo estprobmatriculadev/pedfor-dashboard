@@ -5,9 +5,10 @@ from typing import Dict, Any, List, Optional
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CLASSROOM_DATA_PATH = os.path.join(BASE_DIR, "db", "classroom_data.json")
+TOKEN_PATH = os.path.join(BASE_DIR, "db", "google_token.json")
 
 class GoogleClassroomService:
-    """Serviço de integração direta com o Google Classroom API."""
+    """Serviço de integração direta com o Google Classroom & Meet APIs com persistência de token."""
 
     @classmethod
     def find_client_secret_file(cls) -> Optional[str]:
@@ -80,53 +81,75 @@ class GoogleClassroomService:
         return stats
 
     @classmethod
-    def sync_from_google_api(cls, port: int = 8501) -> Dict[str, Any]:
-        """
-        Realiza a autenticação e sincronização oficial via Google Classroom API.
-        Ajusta a redirect_uri para bater exatamente com a URI configurada no Google Cloud.
-        """
+    def get_valid_credentials(cls, secret_file: str):
+        """Retorna credenciais válidas utilizando token reutilizável salvo se existente."""
+        from google.oauth2.credentials import Credentials
+        from google_auth_oauthlib.flow import InstalledAppFlow
+        from google.auth.transport.requests import Request
+
+        scopes = [
+            'https://www.googleapis.com/auth/classroom.courses.readonly',
+            'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
+            'https://www.googleapis.com/auth/classroom.rosters.readonly'
+        ]
+
+        creds = None
+        if os.path.exists(TOKEN_PATH):
+            try:
+                creds = Credentials.from_authorized_user_file(TOKEN_PATH, scopes)
+            except Exception:
+                creds = None
+
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                try:
+                    creds.refresh(Request())
+                except Exception:
+                    creds = None
+
+            if not creds:
+                flow = InstalledAppFlow.from_client_secrets_file(secret_file, scopes)
+                
+                with open(secret_file, "r", encoding="utf-8") as f:
+                    c_data = json.load(f)
+
+                key_type = 'web' if 'web' in c_data else ('installed' if 'installed' in c_data else None)
+                registered_uris = c_data.get(key_type, {}).get('redirect_uris', []) if key_type else []
+
+                target_port = 8501
+                if registered_uris:
+                    uri = registered_uris[0]
+                    flow.redirect_uri = uri
+                    if ":" in uri:
+                        port_str = uri.split(":")[-1].replace("/", "")
+                        if port_str.isdigit():
+                            target_port = int(port_str)
+
+                creds = flow.run_local_server(port=target_port, prompt='consent')
+
+            # Salva o token renovável para não pedir novamente
+            with open(TOKEN_PATH, "w", encoding="utf-8") as token_file:
+                token_file.write(creds.to_json())
+
+        return creds
+
+    @classmethod
+    def sync_from_google_api(cls) -> Dict[str, Any]:
+        """Realiza a autenticação e sincronização oficial via Google APIs."""
         secret_file = cls.find_client_secret_file()
         if not secret_file:
             return {
                 "success": False,
-                "message": "Nenhum arquivo client_secret*.json encontrado na raiz.",
+                "message": "Nenhum arquivo de credenciais encontrado.",
                 "total_synced": 0
             }
 
         try:
-            from google_auth_oauthlib.flow import InstalledAppFlow
             from googleapiclient.discovery import build
 
-            scopes = [
-                'https://www.googleapis.com/auth/classroom.courses.readonly',
-                'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
-                'https://www.googleapis.com/auth/classroom.rosters.readonly'
-            ]
-
-            flow = InstalledAppFlow.from_client_secrets_file(secret_file, scopes)
-
-            # Tenta utilizar o redirect_uri cadastrado no JSON (ex: http://localhost:8501/)
-            with open(secret_file, "r", encoding="utf-8") as f:
-                c_data = json.load(f)
-
-            key_type = 'web' if 'web' in c_data else ('installed' if 'installed' in c_data else None)
-            registered_uris = c_data.get(key_type, {}).get('redirect_uris', []) if key_type else []
-
-            target_port = port
-            if registered_uris:
-                # Extrai a porta da primeira URI cadastrada
-                uri = registered_uris[0]
-                flow.redirect_uri = uri
-                if ":" in uri:
-                    port_str = uri.split(":")[-1].replace("/", "")
-                    if port_str.isdigit():
-                        target_port = int(port_str)
-
-            # Executa o servidor local de autenticação na porta especificada
-            creds = flow.run_local_server(port=target_port, prompt='consent')
+            creds = cls.get_valid_credentials(secret_file)
             service = build('classroom', 'v1', credentials=creds)
 
-            # Buscar Turmas do Classroom
             courses_result = service.courses().list(pageSize=100).execute()
             courses = courses_result.get('courses', [])
 
@@ -172,23 +195,12 @@ class GoogleClassroomService:
             cls.save_classroom_data(records)
             return {
                 "success": True,
-                "message": f"Sincronização concluída com sucesso! {len(records)} entregas registradas.",
+                "message": f"Sincronização concluída! {len(records)} entregas vinculadas permanentemente.",
                 "total_synced": len(records)
             }
         except Exception as e:
-            err_msg = str(e)
-            if "redirect_uri_mismatch" in err_msg or "400" in err_msg:
-                return {
-                    "success": False,
-                    "message": "Erro de Redirecionamento (redirect_uri_mismatch): Adicione 'http://localhost:8080/' ou crie uma credencial do tipo 'Desktop App' no Google Cloud Console.",
-                    "total_synced": 0
-                }
             return {
                 "success": False,
-                "message": f"Erro na conexão Google: {err_msg}",
+                "message": f"Erro na conexão Google: {str(e)}",
                 "total_synced": 0
             }
-
-if __name__ == "__main__":
-    res = GoogleClassroomService.sync_from_google_api()
-    print(res)
