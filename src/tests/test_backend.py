@@ -1,31 +1,31 @@
 import pytest
 from src.services.dashboard_service import DashboardService
 
-def test_service_get_kpis_contrato():
-    """Valida a estrutura da resposta de KPIs pelo DashboardService."""
+def test_service_get_kpis_matricula():
+    """Valida se o DashboardService retorna os KPIs reais de matrícula (2.288 registros)."""
     kpis = DashboardService.get_kpis()
     assert isinstance(kpis, dict)
-    assert "total_registros" in kpis
-    assert "total_concluidos" in kpis
-    assert "valor_total" in kpis
-    assert "taxa_conclusao_pct" in kpis
-    assert kpis["total_registros"] >= 0
+    assert "total_matriculas" in kpis
+    assert "total_turmas" in kpis
+    assert "total_formadores" in kpis
+    assert "emails_enviados" in kpis
+    assert kpis["total_matriculas"] == 2288
+    assert kpis["total_turmas"] == 150
+    assert kpis["total_formadores"] == 25
 
-def test_service_get_series_contrato():
-    """Valida a estrutura da resposta de séries temporais."""
+def test_service_get_series_matricula():
+    """Valida a distribuição por dia da semana."""
     series = DashboardService.get_series()
     assert isinstance(series, list)
     assert len(series) > 0
     item = series[0]
-    assert "mes_ano" in item
-    assert "total_pedidos" in item
-    assert "concluidos" in item
+    assert "dia_semana" in item
+    assert "total_matriculas" in item
 
-def test_service_get_tabela_contrato():
-    """Valida a resposta da tabela de ranking por unidade."""
-    res = DashboardService.get_tabela()
+def test_service_get_tabela_turmas():
+    """Valida a tabela de ocupação por turma."""
+    res = DashboardService.get_tabela_turmas()
     assert isinstance(res, dict)
     assert "items" in res
-    assert "total" in res
     assert isinstance(res["items"], list)
-    assert res["total"] >= 0
+    assert res["total"] == 150

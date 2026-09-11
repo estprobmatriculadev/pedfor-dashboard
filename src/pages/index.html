@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PEDFOR - Dashboard Executivo</title>
+  <title>PEDFOR - Dashboard de Matrículas</title>
   <link rel="stylesheet" href="../components/theme.css">
 </head>
 <body>
   <header style="padding: 24px 40px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
     <div>
-      <h1 style="margin: 0; font-size: 1.6rem;">📊 Dashboard Executivo PEDFOR</h1>
-      <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Visão Geral de Desempenho e Indicadores | TiDB Cloud Database</p>
+      <h1 style="margin: 0; font-size: 1.6rem;">🎓 Dashboard de Matrículas PEDFOR</h1>
+      <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Painel de Acompanhamento de Cursistas, Turmas e Confirmações | TiDB Cloud Database</p>
     </div>
     <div style="display: flex; gap: 12px; align-items: center;">
       <span class="kpi-badge success" id="status-badge">● Sistema Operacional</span>
@@ -19,72 +19,62 @@
 
   <main style="padding: 32px 40px;">
     <!-- Container dos KPI Cards -->
-    <section aria-label="Indicadores Principais" class="kpi-grid">
+    <section aria-label="Indicadores de Matrícula" class="kpi-grid">
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Total de Pedidos</div>
-        <div class="kpi-value" id="kpi-total">1,248</div>
-        <div class="kpi-badge success">↑ 12.4% no mês</div>
+        <div class="kpi-title">Total de Matrículas</div>
+        <div class="kpi-value" id="kpi-total">2,288</div>
+        <div class="kpi-badge success">Inscrições Confirmadas</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Concluídos</div>
-        <div class="kpi-value" id="kpi-concluidos">940</div>
-        <div class="kpi-badge success">75.3% Eficiência</div>
+        <div class="kpi-title">Turmas Ocupadas</div>
+        <div class="kpi-value" id="kpi-turmas">150</div>
+        <div class="kpi-badge warning">Turmas Ativas</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Em Andamento</div>
-        <div class="kpi-value" id="kpi-andamento">185</div>
-        <div class="kpi-badge warning">98 Pendentes</div>
+        <div class="kpi-title">Formadores</div>
+        <div class="kpi-value" id="kpi-formadores">25</div>
+        <div class="kpi-badge success">Formadores Alocados</div>
       </article>
 
       <article class="glass-card kpi-card">
-        <div class="kpi-title">Montante Financeiro</div>
-        <div class="kpi-value" id="kpi-valor">R$ 354,200.50</div>
-        <div class="kpi-badge success">Total Acumulado</div>
+        <div class="kpi-title">E-mails Enviados</div>
+        <div class="kpi-value" id="kpi-emails">100%</div>
+        <div class="kpi-badge success">Confirmações Entregues</div>
       </article>
     </section>
 
-    <!-- Tabela com Estados de Interface -->
+    <!-- Tabela com Turmas -->
     <section class="glass-card" style="margin-top: 24px;">
-      <h3 style="margin-top: 0;">🏆 Ranking de Eficiência por Regional / Unidade</h3>
-      
-      <!-- Estado Success da Tabela -->
-      <table class="modern-table" aria-label="Tabela de Ranking de Unidades">
+      <h3 style="margin-top: 0;">📚 Detalhamento das Turmas</h3>
+      <table class="modern-table" aria-label="Tabela de Turmas do PEDFOR">
         <thead>
           <tr>
-            <th scope="col">Unidade / Regional</th>
-            <th scope="col">UF</th>
-            <th scope="col">Atendimentos</th>
-            <th scope="col">Concluídos</th>
-            <th scope="col">Valor Total</th>
-            <th scope="col">Taxa de Eficiência</th>
+            <th scope="col">Nome da Turma</th>
+            <th scope="col">Formador Responsável</th>
+            <th scope="col">Dia da Semana</th>
+            <th scope="col">Horário</th>
+            <th scope="col">Total Cursistas</th>
+            <th scope="col">Status E-mail</th>
           </tr>
         </thead>
         <tbody id="tabela-corpo">
           <tr>
-            <td><strong>Núcleo Curitiba Central</strong></td>
-            <td>PR</td>
-            <td>420</td>
-            <td>350</td>
-            <td>R$ 125,000.00</td>
-            <td><span class="kpi-badge success">83.33%</span></td>
+            <td><strong>PEDFOR AA MANHÃ</strong></td>
+            <td>DOROTEA BARBOSA KRUMMENAUER</td>
+            <td>QUARTA-FEIRA</td>
+            <td>8h às 9h40</td>
+            <td>25</td>
+            <td><span class="kpi-badge success">enviado</span></td>
           </tr>
           <tr>
-            <td><strong>Regional Londrina</strong></td>
-            <td>PR</td>
-            <td>310</td>
-            <td>240</td>
-            <td>R$ 89,000.00</td>
-            <td><span class="kpi-badge success">77.42%</span></td>
-          </tr>
-          <tr>
-            <td><strong>Regional Maringá</strong></td>
-            <td>PR</td>
-            <td>280</td>
-            <td>210</td>
-            <td>R$ 78,000.00</td>
-            <td><span class="kpi-badge success">75.00%</span></td>
+            <td><strong>PEDFOR A MANHÃ</strong></td>
+            <td>ELIZETE SCHACTAE</td>
+            <td>TERÇA-FEIRA</td>
+            <td>8h às 9h40</td>
+            <td>28</td>
+            <td><span class="kpi-badge success">enviado</span></td>
           </tr>
         </tbody>
       </table>

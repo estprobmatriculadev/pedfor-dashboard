@@ -1,50 +1,58 @@
 -- ============================================================
--- Migration 002: Views Agregadas de Indicadores para TiDB
--- Projeto: PEDFOR Dashboard
+-- Migration 002: Views Agregadas de Indicadores de Matrícula
+-- Projeto: PEDFOR Dashboard de Matrículas
 -- ============================================================
 
--- 1. View Resumo dos Principais KPIs
-CREATE OR REPLACE VIEW vw_kpi_resumo AS
+-- 1. View Resumo dos KPIs Principais de Matrícula
+CREATE OR REPLACE VIEW vw_kpi_matriculas AS
 SELECT 
-    COUNT(*) AS total_registros,
-    SUM(CASE WHEN status = 'concluido' THEN 1 ELSE 0 END) AS total_concluidos,
-    SUM(CASE WHEN status = 'em_andamento' THEN 1 ELSE 0 END) AS total_em_andamento,
-    SUM(CASE WHEN status = 'pendente' THEN 1 ELSE 0 END) AS total_pendentes,
-    SUM(CASE WHEN status = 'cancelado' THEN 1 ELSE 0 END) AS total_cancelados,
-    COALESCE(SUM(valor), 0.00) AS valor_total,
-    COALESCE(AVG(valor), 0.00) AS valor_medio,
+    COUNT(*) AS total_matriculas,
+    COUNT(DISTINCT cursista_email) AS total_cursistas_unicos,
+    COUNT(DISTINCT turma_id) AS total_turmas,
+    COUNT(DISTINCT turma_formador) AS total_formadores,
+    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS emails_enviados,
+    SUM(CASE WHEN status_email = 'pendente' THEN 1 ELSE 0 END) AS emails_pendentes,
     ROUND(
-        (SUM(CASE WHEN status = 'concluido' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
+        (SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
         2
-    ) AS taxa_conclusao_pct
-FROM registros_pedfor;
+    ) AS taxa_envio_email_pct
+FROM matriculas_pedfor;
 
--- 2. View Agregada Temporal (Por Mês) para Gráficos de Tendência
-CREATE OR REPLACE VIEW vw_series_temporais AS
+-- 2. View Agregada por Turma e Formador
+CREATE OR REPLACE VIEW vw_matriculas_por_turma AS
 SELECT 
-    DATE_FORMAT(data_registro, '%Y-%m') AS mes_ano,
-    COUNT(*) AS total_pedidos,
-    SUM(CASE WHEN status = 'concluido' THEN 1 ELSE 0 END) AS concluidos,
-    SUM(CASE WHEN status = 'pendente' THEN 1 ELSE 0 END) AS pendentes,
-    COALESCE(SUM(valor), 0.00) AS montante_financeiro
-FROM registros_pedfor
-GROUP BY DATE_FORMAT(data_registro, '%Y-%m')
-ORDER BY mes_ano ASC;
-
--- 3. View Ranking de Desempenho por Unidade
-CREATE OR REPLACE VIEW vw_ranking_unidades AS
-SELECT 
-    u.id AS unidade_id,
-    u.nome AS unidade_nome,
-    u.uf,
-    COUNT(r.id) AS total_atendimentos,
-    SUM(CASE WHEN r.status = 'concluido' THEN 1 ELSE 0 END) AS concluidos,
-    COALESCE(SUM(r.valor), 0.00) AS valor_total,
+    turma_id,
+    turma_nome,
+    turma_formador,
+    turma_dia,
+    turma_horario,
+    COUNT(*) AS total_cursistas,
+    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS emails_enviados,
     ROUND(
-        (SUM(CASE WHEN r.status = 'concluido' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(r.id), 0),
+        (SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) * 100.0) / NULLIF(COUNT(*), 0),
         2
-    ) AS taxa_eficiencia_pct
-FROM unidades u
-LEFT JOIN registros_pedfor r ON u.id = r.unidade_id
-GROUP BY u.id, u.nome, u.uf
-ORDER BY total_atendimentos DESC;
+    ) AS taxa_confirmacao_pct
+FROM matriculas_pedfor
+GROUP BY turma_id, turma_nome, turma_formador, turma_dia, turma_horario
+ORDER BY total_cursistas DESC;
+
+-- 3. View Agregada por Formador (Ranking de Ocupação)
+CREATE OR REPLACE VIEW vw_ranking_formadores AS
+SELECT 
+    turma_formador AS formador,
+    COUNT(DISTINCT turma_id) AS qtd_turmas,
+    COUNT(*) AS total_cursistas_atendidos,
+    SUM(CASE WHEN status_email = 'enviado' THEN 1 ELSE 0 END) AS confirmados
+FROM matriculas_pedfor
+GROUP BY turma_formador
+ORDER BY total_cursistas_atendidos DESC;
+
+-- 4. View Agregada por Dia da Semana e Horário
+CREATE OR REPLACE VIEW vw_distribuicao_dia_horario AS
+SELECT 
+    turma_dia AS dia_semana,
+    turma_horario AS horario,
+    COUNT(*) AS total_matriculas
+FROM matriculas_pedfor
+GROUP BY turma_dia, turma_horario
+ORDER BY total_matriculas DESC;

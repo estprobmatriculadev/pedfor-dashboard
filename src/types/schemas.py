@@ -1,27 +1,43 @@
-from typing import TypedDict, Optional, List, Any, Dict
-from datetime import date
+from typing import TypedDict, Optional, List, Dict, Any
 
-class KPICardData(TypedDict):
+class MatriculaRecord(TypedDict):
     id: str
-    label: str
-    value: Any
-    unit: Optional[str]
-    period: str
-    change_percentage: Optional[float]
-    trend: Optional[str] # 'up', 'down', 'stable'
+    cursista_id: str
+    cursista_nome: str
+    cursista_email: str
+    turma_id: str
+    turma_nome: str
+    turma_formador: str
+    turma_dia: str
+    turma_horario: str
+    vaga_id: str
+    data_confirmacao: str
+    status_email: str
 
-class FilterParams(TypedDict, total=False):
-    start_date: Optional[str]
-    end_date: Optional[str]
-    unidade_id: Optional[str]
-    categoria: Optional[str]
-    status: Optional[str]
+class KPIMatriculas(TypedDict):
+    total_matriculas: int
+    total_cursistas_unicos: int
+    total_turmas: int
+    total_formadores: int
+    emails_enviados: int
+    emails_pendentes: int
+    taxa_envio_email_pct: float
+    status: str
+
+class TurmaResumo(TypedDict):
+    turma_id: str
+    turma_nome: str
+    turma_formador: str
+    turma_dia: str
+    turma_horario: str
+    total_cursistas: int
+    emails_enviados: int
+    taxa_confirmacao_pct: float
+
+class FilterMatriculaParams(TypedDict, total=False):
+    turma_id: Optional[str]
+    formador: Optional[str]
+    dia_semana: Optional[str]
+    horario: Optional[str]
+    status_email: Optional[str]
     search: Optional[str]
-
-class DataQualityReport(TypedDict):
-    total_records: int
-    null_counts: Dict[str, int]
-    duplicate_count: int
-    invalid_dates_count: int
-    inconsistent_relationships_count: int
-    quality_score: float

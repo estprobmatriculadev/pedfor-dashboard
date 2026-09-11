@@ -2,11 +2,11 @@ from typing import List, Dict, Any
 from datetime import datetime
 
 class DataQualityEngine:
-    """Motor de verificação e garantia de qualidade dos dados do PEDFOR Dashboard."""
+    """Motor de auditoria de qualidade de dados para matrículas PEDFOR."""
 
     @staticmethod
     def audit_dataset(records: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Realiza auditoria completa em uma lista de registros de pedidos/atendimentos."""
+        """Realiza auditoria completa na lista de registros de matrículas."""
         total = len(records)
         if total == 0:
             return {
@@ -18,18 +18,23 @@ class DataQualityEngine:
                 "status": "vazio"
             }
 
-        null_counts = {"unidade_id": 0, "categoria_id": 0, "data_registro": 0, "status": 0}
+        null_counts = {
+            "cursista_email": 0,
+            "turma_id": 0,
+            "vaga_id": 0,
+            "status_email": 0
+        }
         invalid_dates = 0
         seen_keys = set()
         duplicates = 0
 
         for r in records:
-            # 1. Checagem de nulos em campos obrigatórios
+            # 1. Checagem de nulos
             for field in null_counts.keys():
                 if not r.get(field):
                     null_counts[field] += 1
 
-            # 2. Checagem de chave duplicada
+            # 2. Checagem de chaves duplicadas
             rec_id = r.get("id")
             if rec_id:
                 if rec_id in seen_keys:
@@ -37,23 +42,18 @@ class DataQualityEngine:
                 else:
                     seen_keys.add(rec_id)
 
-            # 3. Validação de data
-            data_reg = r.get("data_registro")
-            if data_reg:
+            # 3. Validação de data de confirmação
+            data_conf = r.get("data_confirmacao")
+            if data_conf:
                 try:
-                    if isinstance(data_reg, str):
-                        dt = datetime.strptime(data_reg[:10], "%Y-%m-%d")
-                    elif isinstance(data_reg, datetime):
-                        dt = data_reg
-                    else:
-                        dt = None
-
-                    if dt and dt > datetime.now():
+                    # Exemplo: 2026-07-10 16:53:20.153974+00
+                    dt_str = str(data_conf)[:19]
+                    dt = datetime.strptime(dt_str, "%Y-%m-%d %H:%M:%S")
+                    if dt > datetime.now():
                         invalid_dates += 1
                 except Exception:
                     invalid_dates += 1
 
-        # Cálculo do Score de Qualidade (0 - 100%)
         total_nulls = sum(null_counts.values())
         errors_total = total_nulls + duplicates + invalid_dates
         quality_score = max(0.0, round(100.0 - (errors_total * 100.0 / (total * 4)), 2))
